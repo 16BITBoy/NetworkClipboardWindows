@@ -10,7 +10,8 @@ namespace NetworkClipboardWindows
     class AppContext : ApplicationContext
     {
         private NotifyIcon mNotifyIcon; 
-        private DeviceConfigForm mConfigform = new DeviceConfigForm();
+        private DeviceConfigForm mConfigForm = new DeviceConfigForm();
+        private AboutForm mAboutForm = new AboutForm();
         public static string deviceIp;
         public static int devicePort;
         public AppContext() 
@@ -19,7 +20,8 @@ namespace NetworkClipboardWindows
             MenuItem exitItem = new MenuItem("Exit", Exit);
             MenuItem configItem = new MenuItem("Set device address...", Config);
             MenuItem sendItem = new MenuItem("Send clipboard", SendClipboard);
-            mNotifyIcon.ContextMenu = new ContextMenu(new MenuItem[] { sendItem, configItem, exitItem });
+            MenuItem aboutItem = new MenuItem("About Network Clipboard...", About);
+            mNotifyIcon.ContextMenu = new ContextMenu(new MenuItem[] { sendItem, configItem, aboutItem, exitItem });
             mNotifyIcon.Icon = NetworkClipboardWindows.Properties.Resources.AppIcon;
             mNotifyIcon.Visible = true;
 
@@ -33,13 +35,21 @@ namespace NetworkClipboardWindows
 
         public void Config(object sender, EventArgs args)
         {
-            if (mConfigform.Visible)
-            {
-                mConfigform.Activate();
+            if (!mConfigForm.IsDisposed) 
+            { 
+                if (mConfigForm.Visible)
+                {
+                    mConfigForm.Activate();
+                }
+                else 
+                {
+                    mConfigForm.Show();
+                }
             }
-            else 
+            else
             {
-                mConfigform.Show();
+                mConfigForm = new DeviceConfigForm();
+                mConfigForm.Show();
             }
         }
 
@@ -110,5 +120,27 @@ namespace NetworkClipboardWindows
             }
         }
 
+        public void About(object sender, EventArgs args)
+        {
+            if (!mAboutForm.IsDisposed)
+            {
+                if (mAboutForm.Visible)
+                {
+                    mAboutForm.Activate();
+                }
+                else
+                {
+                    mAboutForm.Show();
+                }
+            }
+            else
+            {
+                mAboutForm = new AboutForm();
+                mAboutForm.Show();
+            }
+        }
+
     }
+
+
 }

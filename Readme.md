@@ -7,4 +7,5 @@ clipboard has to be requested explicitly by selecting "Send clipboard" in the sy
 tray icon contextual menu.
 
 Also, checkout the Android client to make it work.
+https://github.com/16BITBoy/NetworkClipboardAndroid
 
